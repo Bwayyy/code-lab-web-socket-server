@@ -29,17 +29,22 @@ utils.setPersistence({
     if (fileData) {
       codeLabDoc.setCodeContent(fileData.content);
       console.log("document is initialed", roomName);
+      console.log("path is ", fileDocument.ref.path);
       codeLabDoc.setRefPath(fileDocument.ref.path);
     }
   },
   writeState: async (roomName: string, doc: Doc) => {
-    console.log("document is clossed");
     const codeLabDoc = new CodeLabDoc(doc);
     const path = codeLabDoc.getRefPath();
-    await liveCodingFileRepository.saveFile(path, codeLabDoc.getCodeContent());
-    console.log("Updated file with path", path);
-    // This is called when all connections to the document are closed.
-    // In the future, this method might also be called in intervals or after a certain number of updates.
+    if (path && !path.includes("undefined")) {
+      await liveCodingFileRepository.saveFile(
+        path,
+        codeLabDoc.getCodeContent()
+      );
+      console.log("Saved Document", path);
+      // This is called when all connections to the document are closed.
+      // In the future, this method might also be called in intervals or after a certain number of updates.
+    }
     return new Promise((resolve) => {
       // When the returned Promise resolves, the document will be destroyed.
       // So make sure that the document really has been written to the database.

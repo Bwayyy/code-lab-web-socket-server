@@ -5,11 +5,12 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
-    "start": "npm run build && nodemon index.js"
+    "start": "set NODE_ENV=development && npm run build && nodemon index.js" 
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.0.0",
     "express": "^4.17.2",
     "firebase": "^9.6.5",
     "firebase-admin": "^10.0.2",
