@@ -1,9 +1,9 @@
 import firebaseApp from "../firebase-app";
-import Firestore from "firebase-admin/lib/firestore";
+import admin from "firebase-admin";
 class LiveCodingFileRepository {
-  private firestore: Firestore.Firestore;
+  private firestore: any;
   constructor() {
-    this.firestore = Firestore.getFirestore(firebaseApp);
+    this.firestore = admin.firestore(firebaseApp);
   }
 
   public saveFile(docPath: string, content: string) {
